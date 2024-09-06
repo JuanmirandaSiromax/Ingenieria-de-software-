@@ -43,4 +43,12 @@ CREATE TABLE IF NOT EXISTS reservas (
     FOREIGN KEY (id_habitacion) REFERENCES habitaciones(id_habitacion)
 );
 
-INSERT INTO usuarios(nombre) values ("wladimir");
+# Aquí se pueden insertar más mocks para probar
+INSERT INTO usuarios (nombre,apellido,email,telefono,password,rol,fecha_registro) VALUES
+	 ('Diego','Escobar','diego.escobar@duocuc.cl','987654567','admin','administrador','2024-09-06 05:09:02');
+INSERT INTO usuarios (nombre,apellido,email,telefono,password,rol,fecha_registro) VALUES
+	 ('Alberto','Lizana','alberto.lizana@duocuc.cl','987654567','admin','administrador','2024-09-06 05:09:02');
+INSERT INTO usuarios (nombre,apellido,email,telefono,password,rol,fecha_registro) VALUES
+	 ('Juan','Miranda','juan.miranda@duocuc.cl','987654567','admin','administrador','2024-09-06 05:09:02');
+INSERT INTO usuarios (nombre,apellido,email,telefono,password,rol,fecha_registro) VALUES
+	 ('Wladimir','Rojas','wladimir.rojas@duocuc.cl','987654567','admin','administrador','2024-09-06 05:09:02');

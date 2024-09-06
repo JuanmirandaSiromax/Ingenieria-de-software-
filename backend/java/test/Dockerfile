@@ -1,7 +1,7 @@
 # Usa la imagen base de Zulu JDK 17
 FROM azul/zulu-openjdk-alpine:17
 
-# Copia el archivo JAR generado por Maven/Gradle al contenedor Docker
+# Copia el archivo JAR generado por Maven al contenedor Docker
 COPY target/test-0.0.1-SNAPSHOT.jar app.jar
 
 # Expone el puerto 8080

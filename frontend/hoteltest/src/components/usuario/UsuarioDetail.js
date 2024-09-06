@@ -4,9 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 const fetchUsuarioById = async (id) => {
-  console.log(`Fetching usuario with ID: ${id}`); // Log para ver qué ID se está utilizando
-  const response = await axios.get(`http://localhost:8080/api/user?id=${id}`); // Reemplaza con tu endpoint real
-  console.log('Data fetched:', response.data); // Log para ver los datos obtenidos
+  const response = await axios.get(`http://localhost:8080/api/user?id=${id}`); // De esta forma se llama al endpoint de backend
   return response.data;
 };
 
@@ -20,13 +18,12 @@ const UsuarioDetail = () => {
     enabled: !!searchId, // Solo ejecuta la consulta si searchId no es null
   });
 
-  console.log('Estado de la consulta:', { usuario, isLoading, error }); // Log para verificar el estado de la consulta
-
   const handleSearch = () => {
-    console.log('Buscando usuario con ID:', userId); // Log para ver el ID ingresado por el usuario
     setSearchId(userId); // Actualiza el estado con el ID ingresado
   };
 
+  /* Acá se crea el componente que se intentará renderizar donde sea que se utilice, como etiqueta html,
+  el componente es UsuarioDetail, por lo que para usar el componente, se hará así <UsuarioDetail><UsuarioDetail/> */
   return (
     <div>
       <h2>Consultar Usuario por ID</h2>

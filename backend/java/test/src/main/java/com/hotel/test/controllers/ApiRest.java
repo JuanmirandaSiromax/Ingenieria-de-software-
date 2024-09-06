@@ -17,10 +17,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @RestController
-@RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/api") // esto crea la ruta principal que viene después de localhost:8080/
+@CrossOrigin(origins = "http://localhost:3000") //esto permite que al ejecutar en local, se pueda llamar desde front
 @RequiredArgsConstructor
 public class ApiRest {
 
@@ -28,6 +27,7 @@ public class ApiRest {
     private final HabitacionService habitacionService;
     private final ReservaService reservaService;
 
+    //endpoint para obtener un usuario de acuerdo a un id, la ruta completa quedaría como locahost:8080/api/user?id={id}
     @GetMapping("/user")
     public ResponseEntity<Usuario> getUser(@RequestParam Integer id) {
         return ResponseEntity.ok().body(usuarioService.getUserById(id));
@@ -42,5 +42,5 @@ public class ApiRest {
     public Habitacion getHabitacion(@RequestParam Integer id) {
         return habitacionService.getUserById(id);
     }
-    
+
 }
