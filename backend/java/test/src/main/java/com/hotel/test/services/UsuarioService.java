@@ -1,6 +1,7 @@
 package com.hotel.test.services;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.stereotype.Service;
 
@@ -22,4 +23,12 @@ public class UsuarioService {
     public Usuario getUserById(Integer id) {
         return repository.getReferenceById(id);
     };
+
+    public Usuario validarUsuario(String email, String password) {
+        Usuario usuario = repository.findByEmail(email);
+        if (Objects.nonNull(usuario) && usuario.getPassword().equals(password)) {
+            return usuario;
+        }
+        return null;
+    }
 }

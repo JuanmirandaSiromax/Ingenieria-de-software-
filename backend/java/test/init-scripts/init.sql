@@ -44,11 +44,17 @@ CREATE TABLE IF NOT EXISTS reservas (
 );
 
 # Aquí se pueden insertar más mocks para probar
-INSERT INTO usuarios (nombre,apellido,email,telefono,password,rol,fecha_registro) VALUES
-	 ('Diego','Escobar','diego.escobar@duocuc.cl','987654567','admin','administrador','2024-09-06 05:09:02');
-INSERT INTO usuarios (nombre,apellido,email,telefono,password,rol,fecha_registro) VALUES
-	 ('Alberto','Lizana','alberto.lizana@duocuc.cl','987654567','admin','administrador','2024-09-06 05:09:02');
-INSERT INTO usuarios (nombre,apellido,email,telefono,password,rol,fecha_registro) VALUES
-	 ('Juan','Miranda','juan.miranda@duocuc.cl','987654567','admin','administrador','2024-09-06 05:09:02');
-INSERT INTO usuarios (nombre,apellido,email,telefono,password,rol,fecha_registro) VALUES
-	 ('Wladimir','Rojas','wladimir.rojas@duocuc.cl','987654567','admin','administrador','2024-09-06 05:09:02');
+INSERT INTO usuarios (nombre,apellido,email,telefono,password,rol) VALUES
+	 ('Diego','Escobar','diego.escobar@duocuc.cl','987654567','admin','administrador');
+INSERT INTO usuarios (nombre,apellido,email,telefono,password,rol) VALUES
+	 ('Alberto','Lizana','alberto.lizana@duocuc.cl','987654567','admin','administrador');
+INSERT INTO usuarios (nombre,apellido,email,telefono,password,rol) VALUES
+	 ('Juan','Miranda','juan.miranda@duocuc.cl','987654567','admin','administrador');
+INSERT INTO usuarios (nombre,apellido,email,telefono,password,rol) VALUES
+	 ('Wladimir','Rojas','wladimir.rojas@duocuc.cl','987654567','admin','administrador');
+INSERT INTO usuarios (nombre,apellido,email,telefono,password,rol) VALUES
+	 ('Admin','uno','admin@duocuc.cl','987654567','admin','administrador');
+INSERT INTO usuarios (nombre,apellido,email,telefono,password,rol) VALUES
+	 ('Cliente','Dos','cliente@duocuc.cl','987654567','cliente','cliente');
+INSERT INTO usuarios (nombre,apellido,email,telefono,password,rol) VALUES
+	 ('Operador','Tres','operador@duocuc.cl','987654567','operador','empleado');

@@ -7,5 +7,7 @@ import com.hotel.test.entities.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
+
+    Usuario findByEmail(String email);
     
 }
