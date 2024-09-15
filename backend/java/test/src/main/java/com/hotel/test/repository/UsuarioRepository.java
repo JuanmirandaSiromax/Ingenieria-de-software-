@@ -9,5 +9,7 @@ import com.hotel.test.entities.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     Usuario findByEmail(String email);
+
+    boolean existsByEmail(String email);
     
 }

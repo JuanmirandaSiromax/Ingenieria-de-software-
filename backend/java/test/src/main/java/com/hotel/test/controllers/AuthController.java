@@ -1,37 +1,57 @@
 package com.hotel.test.controllers;
 
-import java.util.Objects;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hotel.test.config.JwtUtil;
 import com.hotel.test.entities.JwtResponse;
-import com.hotel.test.entities.Usuario;
 import com.hotel.test.entities.UsuarioLoginRequest;
-import com.hotel.test.services.JwtService;
-import com.hotel.test.services.UsuarioService;
+import com.hotel.test.services.CustomUserDetailsService;
 
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequiredArgsConstructor
+@Slf4j
 public class AuthController {
 
-    private final JwtService jwtService;
-    private final UsuarioService usuarioService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private CustomUserDetailsService userDetailsService;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UsuarioLoginRequest request) {
-        Usuario usuario = usuarioService.validarUsuario(request.getEmail(), request.getPassword());
-        if (Objects.nonNull(usuario)) {
-            String token = jwtService.generateToken(usuario.getEmail(), usuario.getRol().name());
-            return ResponseEntity.ok(new JwtResponse(token));
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody UsuarioLoginRequest authenticationRequest) {
+
+        log.info("user: {}, {}", authenticationRequest.getEmail(), authenticationRequest.getPassword());
+        try {
+            // Autenticar al usuario
+            authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                    authenticationRequest.getEmail(),
+                    authenticationRequest.getPassword()
+                )
+            );
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
 
+        // Generar el token JWT
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
+        final String jwt = jwtUtil.generateToken(userDetails);
+
+        // Retornar el token
+        return ResponseEntity.ok(new JwtResponse(jwt));
     }
-
 }

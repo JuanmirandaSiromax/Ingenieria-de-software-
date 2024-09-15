@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
     apellido VARCHAR(50),
     email VARCHAR(100) UNIQUE,
     telefono VARCHAR(15),
-    password VARCHAR(255),
+    password VARCHAR(60),
     rol ENUM('cliente', 'empleado', 'administrador'),
     # idioma_preferido ENUM('español', 'inglés'),
     fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP

@@ -12,6 +12,7 @@ import com.hotel.test.services.UsuarioService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,7 @@ public class ApiRest {
 
     //endpoint para obtener un usuario de acuerdo a un id, la ruta completa quedaría como locahost:8080/api/user?id={id}
     @GetMapping("/user")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<Usuario> getUser(@RequestParam Integer id) {
         return ResponseEntity.ok().body(usuarioService.getUserById(id));
     }
