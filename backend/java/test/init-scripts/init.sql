@@ -1,8 +1,8 @@
 CREATE DATABASE IF NOT EXISTS hoteltest;
 USE hoteltest;
-DROP TABLE IF EXISTS usuarios;
-DROP TABLE IF EXISTS habitaciones;
-DROP TABLE IF EXISTS reservas;
+##DROP TABLE IF EXISTS usuarios;
+##DROP TABLE IF EXISTS habitaciones;
+##DROP TABLE IF EXISTS reservas;
 
 CREATE TABLE IF NOT EXISTS usuarios (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
