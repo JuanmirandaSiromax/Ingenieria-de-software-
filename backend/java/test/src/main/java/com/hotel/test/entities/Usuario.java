@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,6 +35,7 @@ public class Usuario implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Enums.Roles rol;
     @Column(name = "fecha_registro")
+    @CreationTimestamp
     private Timestamp fechaRegistro;
 
     @Override

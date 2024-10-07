@@ -1,0 +1,63 @@
+.managementContainer {
+    padding: 20px;
+    text-align: center;
+}
+
+.title {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.filterContainer {
+    margin-bottom: 20px;
+}
+
+.filterSelect {
+    padding: 5px;
+    font-size: 1em;
+    margin-left: 10px;
+}
+
+.userTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.userTable th, .userTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.userTable th {
+    background-color: #4db8ff;
+    color: white;
+    text-align: left;
+}
+
+.userTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.userTable tr:hover {
+    background-color: #ddd;
+}
+
+.userTable td {
+    text-align: center;
+}
+
+/* Estilo para el botón de eliminar */
+.deleteButton {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.deleteButton:hover {
+    background-color: #e60000;
+}

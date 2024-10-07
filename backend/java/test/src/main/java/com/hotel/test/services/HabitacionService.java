@@ -2,6 +2,7 @@ package com.hotel.test.services;
 
 import java.util.List;
 
+import com.hotel.test.enums.Enums;
 import org.springframework.stereotype.Service;
 
 import com.hotel.test.entities.Habitacion;
@@ -19,7 +20,22 @@ public class HabitacionService {
         return repository.findAll();
     }
 
-    public Habitacion getUserById(Integer id) {
-        return repository.getReferenceById(id);
-    };
+    public Habitacion getByNumeroHabitacion(Integer numeroHabitacion) {
+        return repository.getReferenceById(numeroHabitacion);
+    }
+
+    public List<Habitacion> verDisponibles() {
+        return repository.findAllByEstado(Enums.EstadoHabitacion.disponible);
+    }
+
+    public List<Habitacion> verHabitacionesReservadasPorUsuario(List<Integer> numeroHabitaciones) {
+        return repository.findAllByNumeroHabitacionIn(numeroHabitaciones);
+    }
+
+    public Habitacion actualizarEstadoHabitacion(Integer numeroHabitacion, Enums.EstadoHabitacion nuevoEstado) {
+        Habitacion habitacion = repository.findById(numeroHabitacion)
+                .orElseThrow(() -> new RuntimeException("Habitación no encontrada"));
+        habitacion.setEstado(nuevoEstado);
+        return repository.save(habitacion);
+    }
 }

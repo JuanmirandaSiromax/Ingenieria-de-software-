@@ -1,5 +1,6 @@
 package com.hotel.test.controllers;
 
+import com.hotel.test.entities.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,6 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody UsuarioLoginRequest authenticationRequest) {
 
-        log.info("user: {}, {}", authenticationRequest.getEmail(), authenticationRequest.getPassword());
         try {
             // Autenticar al usuario
             authenticationManager.authenticate(
@@ -50,7 +50,7 @@ public class AuthController {
         }
 
         // Generar el token JWT
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
+        final Usuario userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
         final String jwt = jwtUtil.generateToken(userDetails);
 
         // Retornar el token

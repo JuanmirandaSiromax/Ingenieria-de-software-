@@ -1,0 +1,50 @@
+.container {
+    padding: 20px;
+    text-align: center;
+}
+
+.title {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.filters {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+label {
+    font-weight: bold;
+}
+
+select, input[type="number"] {
+    padding: 5px;
+    font-size: 1em;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.table th, .table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.table th {
+    background-color: #4db8ff;
+    color: white;
+}
+
+.table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table tr:hover {
+    background-color: #ddd;
+}

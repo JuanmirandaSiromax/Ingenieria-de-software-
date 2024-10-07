@@ -1,10 +1,12 @@
 package com.hotel.test.config;
 
 import java.util.Date;
+import java.util.Map;
 import java.util.function.Function;
 
 import javax.crypto.SecretKey;
 
+import com.hotel.test.entities.Usuario;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -49,16 +51,17 @@ public class JwtUtil {
     }
 
     // Generar un token JWT para un usuario
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(Usuario userDetails) {
         return createToken(userDetails);
     }
 
-    private String createToken(UserDetails userDetails) {
+    private String createToken(Usuario userDetails) {
         String role = userDetails.getAuthorities().iterator().next().getAuthority();
 
         return Jwts.builder()
                    .subject(userDetails.getUsername())
-                   .claim("role", role)
+                   .claims(Map.of("role", role,
+                           "id", userDetails.getIdUsuario()))
                    .issuedAt(new Date(System.currentTimeMillis()))
                    .expiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY))
                    .signWith(secretKey)

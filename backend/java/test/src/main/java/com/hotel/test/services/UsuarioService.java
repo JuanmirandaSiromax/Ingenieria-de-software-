@@ -3,6 +3,7 @@ package com.hotel.test.services;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 @Slf4j
 public class UsuarioService {
@@ -28,15 +30,6 @@ public class UsuarioService {
         return repository.getReferenceById(id);
     };
 
-    public Usuario validarUsuario(String email, String password) {
-        Usuario usuario = repository.findByEmail(email);
-        log.info("user pass {}, string pass {}", password, usuario.getPassword());
-        if (Objects.nonNull(usuario) && passwordEncoder.matches(password, usuario.getPassword())) {
-            return usuario;
-        }
-        return null;
-    }
-
     public void save(Usuario usuario) {
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         repository.save(usuario);
@@ -48,9 +41,13 @@ public class UsuarioService {
 
     public void encryptExistingPasswords() {
         List<Usuario> usuarios = repository.findAll();
-        usuarios.stream().forEach(usuario -> {
+        usuarios.forEach(usuario -> {
             usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
             repository.save(usuario);
         });
+    }
+
+    public void deleteUserById(Integer id) {
+        repository.deleteByIdUsuario(id);
     }
 }

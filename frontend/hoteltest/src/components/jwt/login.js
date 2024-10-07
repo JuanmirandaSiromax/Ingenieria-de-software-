@@ -21,6 +21,8 @@ const Login = () => {
             localStorage.setItem('token', data.token);
             const decodedToken = jwtDecode(data.token);
             const userRole = decodedToken.role;
+            const userId = decodedToken.id;
+            localStorage.setItem('id', userId);
             // Redirigir según el rol
             if (userRole === 'ROLE_ADMINISTRADOR') {
                 navigate('/admin');

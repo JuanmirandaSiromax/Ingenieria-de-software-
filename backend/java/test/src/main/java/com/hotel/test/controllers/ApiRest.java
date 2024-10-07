@@ -1,6 +1,8 @@
 package com.hotel.test.controllers;
 
-import org.springframework.web.bind.annotation.RestController;
+import com.hotel.test.dtos.ReservaRequest;
+import com.hotel.test.enums.Enums;
+import org.springframework.web.bind.annotation.*;
 
 import com.hotel.test.entities.Habitacion;
 import com.hotel.test.entities.Reserva;
@@ -13,10 +15,9 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api") // esto crea la ruta principal que viene después de localhost:8080/
@@ -30,19 +31,33 @@ public class ApiRest {
 
     //endpoint para obtener un usuario de acuerdo a un id, la ruta completa quedaría como locahost:8080/api/user?id={id}
     @GetMapping("/user")
-    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<Usuario> getUser(@RequestParam Integer id) {
         return ResponseEntity.ok().body(usuarioService.getUserById(id));
     }
 
-    @GetMapping("/booking")
-    public Reserva getReserva(@RequestParam Integer id) {
-        return reservaService.getUserById(id);
+    @GetMapping("/habitaciones-disponibles")
+    public ResponseEntity<List<Habitacion>> getHabitacionesDisponibles() {
+        return ResponseEntity.ok(habitacionService.verDisponibles());
     }
 
-    @GetMapping("/room")
-    public Habitacion getHabitacion(@RequestParam Integer id) {
-        return habitacionService.getUserById(id);
+    @GetMapping("/reservas/usuario/{idUsuario}")
+    public List<Reserva> getReservasByUsuario(@PathVariable Integer idUsuario) {
+        return reservaService.getReservasByUsuario(idUsuario);
+    }
+
+    @PostMapping("/reservar")
+    public ResponseEntity<String> realizarReserva(@RequestBody ReservaRequest reservaRequest) {
+        Habitacion habitacion = habitacionService.getByNumeroHabitacion(reservaRequest.getNumeroHabitacion());
+
+        if (!habitacion.getEstado().equals(Enums.EstadoHabitacion.disponible)) {
+            return ResponseEntity.badRequest().body("La habitación no está disponible");
+        }
+
+        habitacionService.actualizarEstadoHabitacion(reservaRequest.getNumeroHabitacion(), Enums.EstadoHabitacion.reservada);
+
+        Reserva reserva = reservaService.crearReserva(reservaRequest);
+
+        return ResponseEntity.ok("Reserva realizada con éxito, ID: " + reserva.getIdReserva());
     }
 
 }

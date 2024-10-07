@@ -4,26 +4,25 @@ import java.sql.Timestamp;
 
 import com.hotel.test.enums.Enums;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "reservas")
 @Getter
+@Setter
 public class Reserva {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_reserva")
     private Integer idReserva;
     @Column(name = "id_usuario")
     private Integer idUsuario;
-    @Column(name = "id_habitacion")
-    private Integer idHabitacion;
+    @Column(name = "numero_habitacion")
+    private Integer numeroHabitacion;
     @Column(name = "fecha_inicio")
     private Timestamp fechaInicio;
     @Column(name = "fecha_fin")
@@ -44,6 +43,7 @@ public class Reserva {
     @Enumerated(EnumType.STRING)
     private Enums.MetodosPago metodoPago;
     @Column(name = "fecha_creacion")
+    @CreationTimestamp
     private Timestamp fechaCreacion;
 
 }
